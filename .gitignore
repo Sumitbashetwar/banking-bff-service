@@ -1,0 +1,47 @@
+# Ignore Maven & Gradle directories
+target/
+build/
+
+# Ignore Gradle specific files
+.gradle/
+gradlew.bat
+gradlew
+
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IDEA
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Spring Boot specific
+spring.log
+
+# Database
+*.h2.db
+*.mv.db
+
+# Node modules if you have frontend files
+node_modules/
+
+# Test reports
+test-output/
+target/
+# Docker volumes
+docker/mysql/data/
+docker/redis/data/
+

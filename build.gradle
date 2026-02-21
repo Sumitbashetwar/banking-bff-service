@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'pmd'
+}
+
+group = 'com.webapp'
+version = '0.0.1-SNAPSHOT'
+description = 'bankingportal'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    // MapStruct
+    implementation 'org.mapstruct:mapstruct:1.6.0.Beta2'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.0.Beta2'
+
+    // Utilities
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.38'
+    implementation 'com.github.javafaker:javafaker:1.0.2'
+
+    // Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    // DB
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Cache
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+
+    // JWT
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+    // Mail testing
+    testImplementation 'com.icegreen:greenmail-junit5:2.0.0-alpha-2'
+
+    // JAXB
+    implementation 'javax.xml.bind:jaxb-api:2.1'
+
+    // OpenAPI / Swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    // Jackson (Spring Boot already manages versions, so version not needed)
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.core:jackson-core'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
+
+    // Devtools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+
+    // Tests
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+/* ---------------- PMD CONFIG ---------------- */
+
+pmd {
+    toolVersion = "7.0.0"
+    consoleOutput = true
+    ignoreFailures = false
+    ruleSets = [] // disable default rulesets
+
+    ruleSetFiles = files(
+            "config/pmd/braces.xml",
+            "config/pmd/naming.xml",
+            "config/pmd/strings.xml",
+            "config/pmd/design.xml"
+    )
+}
+
+tasks.named('check') {
+    dependsOn 'pmdMain', 'pmdTest'
+}
