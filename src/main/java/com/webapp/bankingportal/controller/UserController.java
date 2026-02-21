@@ -39,7 +39,7 @@ public class UserController {
         // Only send email if registration succeeded
         if (response.getStatusCode().is2xxSuccessful()) {
             String emailBody = emailService.getBankStatementEmailTemplate(user.getName(), "Welcome! Your account is created.");
-            emailService.sendEmail(user.getEmail(), "Welcome to OneStopBank", emailBody);
+            emailService.sendEmail(user.getEmail(), "Welcome to ABC Bank", emailBody);
         }
 
         return response;

@@ -1,7 +1,6 @@
 package com.webapp.bankingportal.config;
 
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -24,9 +23,6 @@ public class SwaggerConfig {
                         .description("This is auth service use for validate the user.")
                         .version("v0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
-                .externalDocs(new ExternalDocumentation()
-                        .description("BankingPortal-API Wiki Documentation")
-                        .url("https://github.com/abhi9720/BankingPortal-API/wiki"))
                 .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(
                         new Components()
